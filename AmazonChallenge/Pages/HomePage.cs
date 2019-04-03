@@ -16,14 +16,18 @@ namespace AmazonChallenge.Pages
 
         By searchButton = By.XPath("//input[@type='submit' and @value='Go']");
 
+        By signInButton = By.XPath("//a[@class='nav-a nav-a-2' and @id='nav-link-accountList']");
+
         public string getBaseURL() { return baseURL; }
 
         public void goToHome() { goTo(baseURL); }
 
-        public void searchArticle(String searchString)
+        public ArticlePage searchArticle(String searchString)
         {
-
-
+            IWebElement articleToBeSearch = driver.FindElement(searchInput);
+            articleToBeSearch.SendKeys(searchString);
+            click(searchButton);
+            return new ArticlePage(driver);
 
         }
 

@@ -21,7 +21,37 @@ namespace AmazonChallenge.Tests
             homePage.validateCurrentURL(homePage.getBaseURL());
         }
 
+        [Test]
+        public void searchResultPage()
+        {
+            HomePage homePage = new HomePage(driver);
 
-        
+            string searchString = "iphone 8";
+
+            homePage.goToHome();
+
+            ArticlePage resultsPage = homePage.searchArticle(searchString);
+
+            resultsPage.validateSearchResultsFor(searchString);
+
+        }
+
+        [Test]
+        public void validateLeftRefinement()
+        {
+            HomePage homePage = new HomePage(driver);
+
+            string searchString = "iphone 8";
+
+            homePage.goToHome();
+
+            ArticlePage resultsPage = homePage.searchArticle(searchString);
+
+            resultsPage.validateLeftRefinement();
+
+        }
+
+
+
     }
 }

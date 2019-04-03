@@ -13,13 +13,32 @@ namespace AmazonChallenge.Pages
     {
         public ArticlePage(IWebDriver driver) : base(driver){}
 
-        By searchInput = By.Id("twotabsearchtextbox");
+        By leftRefinement = By.Id("s-refinements");
 
-        By searchButton = By.XPath("//input[@type='submit' and @value='Go']");
+        By searchResultsFor = By.XPath("//span[@class='a-color-state a-text-bold']");
 
-        public string getBaseURL() { return baseURL; }
+        public string getPageTitle() { return driver.Title; }
 
-        public void goToHome() { goTo(baseURL); }
+        public string getSearchResultsFor()
+        {
+            IWebElement element = driver.FindElement(searchResultsFor);
+            return element.Text;
+        }
+
+        public void validateSearchResultsFor(String searchString)
+        {
+            string actualSearchResultsFor = this.getSearchResultsFor();
+
+            Assert.True(actualSearchResultsFor.Contains(searchString), "The search text for is different than expected");
+        }
+
+        public void validateLeftRefinement()
+        {
+            IWebElement element = driver.FindElement(leftRefinement);
+
+            Assert.True(element.Displayed, "The left refinement is not displayed");
+        }
+
 
 
     }
